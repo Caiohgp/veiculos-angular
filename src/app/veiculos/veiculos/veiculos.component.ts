@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Observable } from 'rxjs';
 import { Veiculo } from '../model/veiculo';
+import { VeiculosService } from '../services/veiculos.service';
 
 @Component({
   selector: 'app-veiculos',
@@ -8,12 +11,12 @@ import { Veiculo } from '../model/veiculo';
 })
 export class VeiculosComponent implements OnInit {
 
-  veiculos: Veiculo[] = [{
-    id:1,nome:"Lamborghini",placa:"213123",renavam:"213123123",dataDeCadastro:"12/12/2021",valor:4
-  } ];
+  veiculos: Observable<Veiculo[]>;
   displayedColumns = ['nome','placa','renavam','dataDeCadastro','valor'];
 
-  constructor() { }
+  constructor(private veiculosService: VeiculosService) {
+    this.veiculos = this.veiculosService.listAll();
+   }
 
   ngOnInit(): void {
   }

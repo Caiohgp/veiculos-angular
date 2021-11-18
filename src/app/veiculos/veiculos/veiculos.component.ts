@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
 import { Veiculo } from '../model/veiculo';
 import { VeiculosService } from '../services/veiculos.service';
-import { ResponsePageable } from '../model/responsePageable';
+
 
 @Component({
   selector: 'app-veiculos',

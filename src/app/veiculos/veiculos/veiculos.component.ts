@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Veiculo } from '../model/veiculo';
 import { VeiculosService } from '../services/veiculos.service';
+import { ResponsePageable } from '../model/responsePageable';
 
 @Component({
   selector: 'app-veiculos',
@@ -11,14 +12,22 @@ import { VeiculosService } from '../services/veiculos.service';
 })
 export class VeiculosComponent implements OnInit {
 
-  veiculos: Observable<Veiculo[]>;
+  veiculos: Veiculo[];
   displayedColumns = ['nome','placa','renavam','dataDeCadastro','valor'];
 
   constructor(private veiculosService: VeiculosService) {
-    this.veiculos = this.veiculosService.listAll();
+    this.veiculos = [];
    }
 
   ngOnInit(): void {
+    this.getVeiculos();
   }
 
+    getVeiculos(){
+      this.veiculosService.listAll().subscribe(data=>{
+        this.veiculos = data.content;
+        console.log(this.veiculos);
+    });
+
+  }
 }

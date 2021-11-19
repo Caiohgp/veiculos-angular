@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Veiculo } from '../model/veiculo';
 import { ResponsePageable } from '../model/responsePageable';
 import { Observable } from 'rxjs';
+import { Veiculo } from '../model/veiculo';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,8 @@ export class VeiculosService {
 
   public listAll(): Observable<ResponsePageable>{
     return this.httpClient.get<ResponsePageable>(this.API);
-
+  }
+  public postVeiculos(veiculo: any): Observable<Veiculo>{
+    return  this.httpClient.post<any>(this.API,veiculo, this.httpOptions);
   }
 }

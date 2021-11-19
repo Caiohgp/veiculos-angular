@@ -8,6 +8,6 @@ export interface Veiculo {
   renavam: string;
   dataDeCadastro: string;
   valor: number;
-  //modelo: Modelo;
-  //opcional: Opcional;
+  modelo: Modelo;
+  opcional: Opcional;
 }

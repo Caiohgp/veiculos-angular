@@ -1,6 +1,5 @@
 <mat-card>
 
-  <mat-toolbar color="primary">Veículos</mat-toolbar>
   <table mat-table [dataSource]="veiculos" class="mat-elevation-z8">
 
     <!-- Nome Column -->
@@ -33,8 +32,22 @@
       <td mat-cell *matCellDef="let veiculo"> {{veiculo.valor}} </td>
     </ng-container>
 
+    <!-- Modelo Column -->
+    <ng-container matColumnDef="modelo">
+      <th mat-header-cell *matHeaderCellDef> Modelo </th>
+      <td mat-cell *matCellDef="let veiculo"> {{veiculo.modelo.nome}} </td>
+    </ng-container>
+
+    <!-- Opcionais Column -->
+    <ng-container matColumnDef="opcional">
+      <th mat-header-cell *matHeaderCellDef> Opcionais </th>
+      <td mat-cell *matCellDef="let veiculo"> {{veiculo.opcional[0].nome}} </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <button mat-raised-button color="primary" (click)="addVeiculo()">Primary</button>
 </mat-card>
 

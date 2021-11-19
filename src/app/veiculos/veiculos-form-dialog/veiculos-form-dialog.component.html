@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Adicionar Veículo</h1>
+
+<div mat-card-content>
+  <form class="veiculos-form" [formGroup]="veiculoForm">
+
+    <mat-form-field class="veiculos-full-width">
+      <mat-label>Nome do Veículo</mat-label>
+      <input matInput formControlName="nome" name="nome">
+    </mat-form-field>
+
+    <mat-form-field class="veiculos-full-width">
+      <mat-label>Placa</mat-label>
+      <input matInput formControlName="placa" name="placa">
+    </mat-form-field>
+
+    <mat-form-field class="veiculos-full-width">
+      <mat-label>Renavam</mat-label>
+      <input matInput formControlName="renavam" name="renavam">
+    </mat-form-field>
+
+    <mat-form-field class="veiculos-full-width">
+      <mat-label>Data</mat-label>
+      <input matInput formControlName="dataDeCadastro" name="dataDeCadastro">
+    </mat-form-field>
+
+    <mat-form-field class="veiculos-full-width">
+      <mat-label>Valor</mat-label>
+      <input matInput formControlName="valor" name="valor">
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="createVeiculo()" color="primary">Adicionar</button>
+  <button mat-button (click)="cancel()">Cancelar</button>
+</div>

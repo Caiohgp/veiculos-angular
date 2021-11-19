@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Veiculo } from '../model/veiculo';
 import { VeiculosService } from '../services/veiculos.service';
 import { VeiculosFormDialogComponent } from '../veiculos-form-dialog/veiculos-form-dialog.component';
+import { ModelosService } from 'src/app/modelos/modelos.service';
+import { Opcional } from '../model/opcional';
 
 
 @Component({
@@ -13,10 +15,13 @@ import { VeiculosFormDialogComponent } from '../veiculos-form-dialog/veiculos-fo
 })
 export class VeiculosComponent implements OnInit {
 
-  veiculos: Veiculo[] = [];
+  veiculos: Veiculo[];
+  opcionais: Opcional[];
+
+
   displayedColumns = ['nome','placa','renavam','dataDeCadastro','valor','modelo','opcional'];
 
-  constructor(private veiculosService: VeiculosService, public dialog: MatDialog) {   }
+  constructor(private veiculosService: VeiculosService,private modeloService: ModelosService, public dialog: MatDialog) {   }
 
   ngOnInit(): void {
     this.getVeiculos();
@@ -28,14 +33,13 @@ export class VeiculosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
+
   getVeiculos(){
     this.veiculosService.listAll().subscribe(data=>{
       this.veiculos = data.content;
-      console.log(this.veiculos);
   });
-
   }
+
 }

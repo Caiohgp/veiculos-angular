@@ -18,14 +18,42 @@
       <input matInput formControlName="renavam" name="renavam">
     </mat-form-field>
 
-    <mat-form-field class="veiculos-full-width">
-      <mat-label>Data</mat-label>
-      <input matInput formControlName="dataDeCadastro" name="dataDeCadastro">
-    </mat-form-field>
+    <div fxLayout="row wrap">
+      <div fxFlex="50" fxFill fxLayoutAlign="start center">
+          <mat-form-field>
+              <mat-label>Data</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dataCadastro">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+      </div>
+      <div fxFlex="50" fxFill fxLayoutAlign="start center">
+          <mat-form-field>
+              <mat-label>Horário</mat-label>
+              <input matInput type="time" placeholder="" formControlName="horarioCadastro" #time/>
+          </mat-form-field>
+      </div>
+      </div>
 
     <mat-form-field class="veiculos-full-width">
       <mat-label>Valor</mat-label>
       <input matInput formControlName="valor" name="valor">
+    </mat-form-field>
+
+    <mat-form-field class="veiculos-full-width">
+      <mat-label>Modelos</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let modelo of modelos" [value]="modelo.id">
+          {{modelo.nome}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="veiculos-full-width">
+      <mat-label>Opcionais</mat-label>
+      <mat-select multiple>
+        <mat-option *ngFor="let opcional of opcionais" [value]="opcional.id">{{opcional.nome}}</mat-option>
+      </mat-select>
     </mat-form-field>
 
   </form>

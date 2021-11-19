@@ -1,7 +1,13 @@
+import { ModelosService } from './../../modelos/modelos.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { VeiculosService } from '../services/veiculos.service';
+import { OpcionalService } from 'src/app/opcionais/opcional.service';
+
+import * as moment from 'moment';
+import { Modelo } from '../model/modelo';
+import { Opcional } from '../model/opcional';
 
 @Component({
   selector: 'app-veiculos-form-dialog',
@@ -11,10 +17,14 @@ import { VeiculosService } from '../services/veiculos.service';
 export class VeiculosFormDialogComponent implements OnInit {
 
   public veiculoForm: FormGroup;
+  modelos: Modelo[];
+  opcionais: Opcional[];
 
   constructor(
     private fb: FormBuilder,
     private rest: VeiculosService,
+    private modeloService: ModelosService,
+    private opcionalService: OpcionalService,
     public dialogRef: MatDialogRef<VeiculosFormDialogComponent>,
     ) { }
 
@@ -24,13 +34,20 @@ export class VeiculosFormDialogComponent implements OnInit {
       nome: ['',[Validators.required]],
       placa: ['',[Validators.required]],
       renavam: ['',[Validators.required]],
-      dataDeCadastro: ['',[Validators.required]],
-      valor: ['',[Validators.required]]
+      dataCadastro: ['',[Validators.required]],
+      horarioCadastro: ['',[Validators.required]],
+      valor: ['',[Validators.required]],
+      modelo: ['',[Validators.required]],
+      opcional: ['',[Validators.required]],
     });
+    this.getModelos();
+    this.getOpcionais();
   }
 
   createVeiculo(){
-    this.rest.postVeiculos(this.veiculoForm.value).subscribe(result => {})
+    let newDate: moment.Moment = moment.utc(this.veiculoForm.value.dataCadastro).local();
+    this.veiculoForm.value.dataCadastro = newDate.format("YYYY-MM-DD") + "T" + this.veiculoForm.value.horarioCadastro;
+    this.rest.postVeiculos(this.veiculoForm.value).subscribe(result => {});
     this.dialogRef.close();
     this.veiculoForm.reset();
 
@@ -40,6 +57,20 @@ export class VeiculosFormDialogComponent implements OnInit {
     this.dialogRef.close();
     this.veiculoForm.reset();
 
+  }
+
+
+  getModelos(){
+    this.modeloService.listAll().subscribe(dataModelo=>{
+      this.modelos = dataModelo;
+  });
+  }
+
+  getOpcionais(){
+    this.opcionalService.listAll().subscribe(dataOpcional=>{
+      this.opcionais = dataOpcional;
+      console.log (this.opcionais);
+  });
   }
 
 }
